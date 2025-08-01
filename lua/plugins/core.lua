@@ -1,12 +1,18 @@
 return {
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-  },
-
   -- File explorer
-  { "nvim-neo-tree/neo-tree.nvim" },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true, -- Show filtered items (e.g. dotfiles)
+          show_hidden_count = true,
+          hide_dotfiles = false, -- Don't hide dotfiles
+          hide_gitignored = false,
+        },
+      },
+    },
+  },
 
   -- Terminal
   {
@@ -19,7 +25,6 @@ return {
   { "nvim-telescope/telescope.nvim" },
   { "nvim-lua/plenary.nvim" },
 
-  -- Formatting / Linting
-  { "stevearc/conform.nvim" },
-  { "nvimtools/none-ls.nvim" },
+  -- Testing
+  { "nvim-neotest/nvim-nio" },
 }

@@ -4,6 +4,7 @@ return {
     opts = function(_, opts)
       local null_ls = require("null-ls")
 
+      -- PHP
       opts.sources = vim.list_extend(opts.sources or {}, {
         -- PHPStan
         null_ls.builtins.diagnostics.phpstan.with({
@@ -24,6 +25,16 @@ return {
           args = { "$FILENAME" },
           condition = function(utils)
             return utils.root_has_file("pint.json") or utils.root_has_file("pint.json.dist")
+          end,
+        }),
+
+        -- Prettier
+        null_ls.builtins.formatting.prettier.with({
+          filetypes = { "html", "scss" },
+          command = "./node_modules/.bin/prettier", -- fallback to just "prettier" if installed globally
+          args = { "--stdin-filepath", "$FILENAME" },
+          condition = function(utils)
+            return utils.root_has_file(".prettierrc") or utils.root_has_file("prettier.config.js")
           end,
         }),
       })
