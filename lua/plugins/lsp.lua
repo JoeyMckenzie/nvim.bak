@@ -5,10 +5,10 @@ return {
     opts = {
       servers = {
         phpactor = {
-          enabled = true,
+          enabled = false,
         },
         intelephense = {
-          enabled = false,
+          enabled = true,
         },
       },
     },
