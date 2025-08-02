@@ -28,48 +28,19 @@ return {
           end,
         }),
 
-        -- Biome (preferred)
-        null_ls.builtins.formatting.biome.with({
-          filetypes = { "javascript", "typescript", "json", "jsonc", "html", "scss" },
-          command = "./node_modules/.bin/biome",
-          args = { "format", "--stdin-filepath", "$FILENAME" },
-          condition = function(utils)
-            return utils.root_has_file("biome.json")
-          end,
-        }),
-        null_ls.builtins.diagnostics.biome.with({
-          filetypes = { "javascript", "typescript", "json", "jsonc" },
-          condition = function(utils)
-            return utils.root_has_file(".biome.json") or utils.root_has_file("biome.json")
-          end,
-        }),
-
-        -- Prettier fallback (if no Biome config is found)
+        -- Prettier
         null_ls.builtins.formatting.prettier.with({
-          filetypes = { "html", "scss", "javascript", "typescript", "json", "jsonc" },
-          command = "./node_modules/.bin/prettier",
+          filetypes = { "html" },
+          command = "./node_modules/.bin/prettier", -- or just "prettier" if global
           args = { "--stdin-filepath", "$FILENAME" },
           condition = function(utils)
-            return not (utils.root_has_file(".biome.json") or utils.root_has_file("biome.json"))
-              and (
-                utils.root_has_file(".prettierrc")
-                or utils.root_has_file("prettier.config.js")
-                or utils.root_has_file(".prettierrc.json")
-              )
+            return utils.root_has_file(".prettierrc")
+              or utils.root_has_file("prettier.config.js")
+              or utils.root_has_file(".prettierrc.json")
           end,
         }),
 
-        -- ESLint fallback (only if no Biome)
-        null_ls.builtins.diagnostics.eslint.with({
-          command = "./node_modules/.bin/eslint",
-          condition = function(utils)
-            return not (utils.root_has_file(".biome.json") or utils.root_has_file("biome.json"))
-                and utils.root_has_file(".eslintrc")
-              or utils.root_has_file(".eslintrc.js")
-          end,
-        }),
-
-        -- Styleline
+        -- Stylelint
         null_ls.builtins.diagnostics.stylelint.with({
           command = "./node_modules/.bin/stylelint",
           args = { "--stdin", "--stdin-filename", "$FILENAME" },
