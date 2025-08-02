@@ -5,9 +5,9 @@ return {
     opts = {
       filesystem = {
         filtered_items = {
-          visible = true, -- Show filtered items (e.g. dotfiles)
+          visible = true,
           show_hidden_count = true,
-          hide_dotfiles = false, -- Don't hide dotfiles
+          hide_dotfiles = false,
           hide_gitignored = false,
         },
       },
@@ -22,7 +22,24 @@ return {
   },
 
   -- Telescope & UI
-  { "nvim-telescope/telescope.nvim" },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = {
+            "fd",
+            "--type",
+            "f",
+            "--hidden",
+            "--no-ignore",
+            "--exclude",
+            ".git",
+          },
+        },
+      },
+    },
+  },
   { "nvim-lua/plenary.nvim" },
 
   -- Testing
