@@ -9,12 +9,7 @@ return {
       formatters = {
         php_cs_fixer = {
           command = "vendor/bin/php-cs-fixer",
-          args = { "fix", "$FILENAME" },
-          stdin = false,
         },
-      },
-      format_on_save = {
-        timeout_ms = 500,
       },
     },
   },
@@ -23,7 +18,7 @@ return {
     optional = true,
     opts = {
       linters_by_ft = {
-        php = {},
+        php = { "phpstan" },
       },
     },
   },
