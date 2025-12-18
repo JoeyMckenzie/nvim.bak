@@ -1,5 +1,45 @@
 return {
   {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          table.insert(opts.ensure_installed, "php-debug-adapter")
+        end,
+      },
+    },
+    config = function()
+      local dap = require("dap")
+
+      dap.adapters.php = {
+        type = "executable",
+        command = "node",
+        args = { vim.fn.stdpath("data") .. "/mason/packages/php-debug-adapter/extension/out/phpDebug.js" },
+      }
+
+      dap.configurations.php = {
+        {
+          type = "php",
+          request = "launch",
+          name = "Listen for Xdebug",
+          port = 9003,
+          pathMappings = {
+            -- Adjust if using Docker/Sail: ["/var/www/html"] = "${workspaceFolder}"
+          },
+        },
+        {
+          type = "php",
+          request = "launch",
+          name = "Listen for Xdebug (port 9000)",
+          port = 9000,
+        },
+      }
+    end,
+  },
+  {
     "stevearc/conform.nvim",
     optional = true,
     opts = {
