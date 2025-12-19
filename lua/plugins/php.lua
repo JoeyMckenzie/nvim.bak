@@ -1,4 +1,16 @@
 return {
+  -- Run both intelephense and phpactor
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        phpactor = {
+          -- phpactor handles composer.json nicely
+          filetypes = { "php", "json" },
+        },
+      },
+    },
+  },
   {
     "mfussenegger/nvim-dap",
     optional = true,
