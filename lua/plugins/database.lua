@@ -16,15 +16,16 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
-  { -- optional saghen/blink.cmp completion source
+  {
     "saghen/blink.cmp",
     opts = {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
         per_filetype = {
-          sql = { "snippets", "dadbod", "buffer" },
+          sql = { "dadbod", "snippets", "buffer" },
+          mysql = { "dadbod", "snippets", "buffer" },
+          plsql = { "dadbod", "snippets", "buffer" },
         },
-        -- add vim-dadbod-completion to your completion providers
         providers = {
           dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
         },
