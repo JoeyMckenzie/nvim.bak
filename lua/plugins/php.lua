@@ -80,13 +80,6 @@ return {
     dependencies = {
       "olimorris/neotest-phpunit",
     },
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-phpunit"),
-        },
-      })
-    end,
   },
   {
     "adalessa/laravel.nvim",
